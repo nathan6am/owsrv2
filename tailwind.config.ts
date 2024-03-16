@@ -1,5 +1,6 @@
 import type { Config } from "tailwindcss";
 
+import plugin from "tailwindcss/plugin";
 const config: Config = {
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
@@ -11,6 +12,15 @@ const config: Config = {
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic": "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+      },
+      textShadow: {
+        sm: "0 1px 2px rgba(12,12,12, 0.3)",
+        DEFAULT: "0 2px 4px var(--tw-shadow-color)",
+        lg: "0 8px 16px var(--tw-shadow-color)",
+      },
+      fontFamily: {
+        header: ["Kallisto", "sans-serif"],
+        kallisto: ["Kallisto", "sans-serif"],
       },
       colors: {
         facebook: "#4267B2",
@@ -33,20 +43,22 @@ const config: Config = {
           900: "#dedede",
         },
         elevation: {
-          100: "#121212",
-          200: "#1e1e1e",
-          250: "#262629",
-          300: "#2e2f33",
-          400: "#333438",
-          500: "#3f4046",
-          600: "#46474c",
+          0: "#121212",
+          1: "#1e1e1e",
+          2: "#262629",
+          3: "#2e2f33",
+          4: "#333438",
+          5: "#3f4046",
+          6: "#46474c",
+          7: "#595b67",
+          8: "#6c6e7b",
         },
         light: {
-          100: "#4d5156",
-          200: "#7c848d",
+          500: "#4d5156",
+          400: "#7c848d",
           300: "#868f98",
-          400: "#c4c9cf",
-          500: "#eaf0f6",
+          200: "#c4c9cf",
+          100: "#eaf0f6",
         },
         primary: {
           100: "#ffcbcf",
@@ -68,7 +80,22 @@ const config: Config = {
         },
       },
     },
+    gridTemplateColumns: {
+      eventGridSm: "repeat( auto-fit, minmax(20rem, 1fr) )",
+      eventGrid: "repeat( auto-fit, minmax(25rem, 1fr) )",
+    },
   },
-  plugins: [],
+  plugins: [
+    plugin(function ({ matchUtilities, theme }) {
+      matchUtilities(
+        {
+          "text-shadow": (value) => ({
+            textShadow: value,
+          }),
+        },
+        { values: theme("textShadow") }
+      );
+    }),
+  ],
 };
 export default config;

@@ -46,10 +46,13 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       <div className={cn("w-full max-w-md mb-2", containerClassName)}>
         {label && (
           <span className="flex flex-row items-center mb-1">
-            <label className={cn("block text-light-400 text-sm font-medium", labelClassName)} htmlFor={id}>
+            <label
+              className={cn("block text-light-200 text-sm font-medium", disabled && "text-light-500", labelClassName)}
+              htmlFor={id}
+            >
               {label}
             </label>
-            {optional && <p className="text-xs text-white/[0.3] font-medium ml-1 mt-[2px]">(optional)</p>}
+            {optional && <p className="text-xs text-light-400 font-medium ml-1 mt-[2px]">(Optional)</p>}
           </span>
         )}
         <div className="relative">
@@ -57,12 +60,14 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
             ref={ref}
             className={cn(
               className,
-              "appearance-none bg-elevation-400 rounded-md placeholder-light-300 border-light-100 border w-full",
-              "focus:bg-elevation-500 focus:ring-light-300 focus:border-light-300 ring-offset-0 focus:outline-none",
+              "appearance-none bg-elevation-4 rounded-md placeholder-light-300 border-light-400 border w-full",
+              disabled && "bg-elevation-3 border-light-500",
+              "focus:bg-elevation-5 focus:ring-light-300 focus:border-light-300 ring-offset-0 focus:outline-none focus:shadow-md",
               "py-1.5 pr-4",
               inputClassName,
               {
-                "border-primary-500 ": status === "error" && !inProgress,
+                "border-primary-500 ": (status === "error" || errorText) && !inProgress,
+                "border-success-500": status === "success" && !inProgress,
                 "pl-8": leftIcon,
                 "pl-2": !leftIcon,
               }
@@ -74,7 +79,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           ></input>
           {Icon && (
             <div className="absolute left-2 top-0 bottom-0 h-full w-fit flex flex-col justify-center">
-              <Icon className=" text-light-500 text-lg" />
+              <Icon className=" text-light-100 text-lg" />
             </div>
           )}
           <div className="absolute right-2 top-0 bottom-0 h-full w-fit flex flex-row justify-center items-center">
@@ -87,7 +92,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
             )}
             {type === "password" && (
               <button
-                className="text-light-400 hover:text-light-500"
+                className="text-light-200 hover:text-light-100"
                 type="button"
                 onClick={() => {
                   console.log("clicked");

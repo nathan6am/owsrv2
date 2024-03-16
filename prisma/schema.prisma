@@ -6,14 +6,152 @@ generator client {
 }
 
 datasource db {
-  provider = "mongodb"
-  url      = env("MONGODB_URI")
+  provider = "postgresql"
+  url      = env("DATABSE_URL")
+}
+
+enum Game {
+  AC
+  AC2
+  ACC
+  IRACING
+  RF2
+  AMS2
+}
+
+enum Role {
+  ADMIN
+  USER
+  PREMIUM
+  ORGANIZER
+}
+
+enum TeamRole {
+  OWNER
+  ADMIN
+  MEMBER
+}
+
+enum LicenseClass {
+  R
+  C
+  B
+  A
+  S
+}
+
+enum SessionType {
+  PRACTICE
+  QUALIFYING
+  RACE
+  HOTLAP
+}
+
+enum RegistrationType {
+  INDIVIDUAL
+  TEAM
 }
 
 model User {
-  id        String   @id @map("_id") @default(auto()) @db.ObjectId
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  email     String   @unique
-  name      String?
+  id            String         @id
+  email         String         @unique
+  lastSync      DateTime       @default(now())
+  profile       Profile?
+  role          Role           @default(USER)
+  teams         TeamUser[]
+  settings      UserSettings?
+  registrations Registration[]
+}
+
+model Profile {
+  id           String       @id
+  user         User         @relation(fields: [userID], references: [id])
+  userID       String       @unique
+  country      String
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+  bio          String?
+  avatar       String?
+  username     String?      @unique
+  firstName    String
+  lastName     String
+  driverCode   String
+  discordID    String       @unique
+  steamID      String?      @unique
+  iRacingID    String?      @unique
+  streamLink   String?
+  license      LicenseClass @default(R)
+  skillRating  Int          @default(1000)
+  safetyRating Float        @default(2.0)
+}
+
+model UserSettings {
+  id                Int    @id @default(autoincrement())
+  profileVisibility String @default("PUBLIC")
+  user              User   @relation(fields: [userID], references: [id])
+  userID            String @unique
+  units             String @default("METRIC")
+  timeZone          String @default("BROWSER")
+  language          String @default("EN")
+}
+
+model Team {
+  id        String     @id
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  name      String     @unique
+  members   TeamUser[]
+}
+
+model TeamUser {
+  id     Int      @id @default(autoincrement())
+  user   User     @relation(fields: [userID], references: [id])
+  userID String
+  team   Team     @relation(fields: [teamID], references: [id])
+  teamID String
+  role   TeamRole @default(MEMBER)
+}
+
+model League {
+  id     String  @id
+  name   String
+  slug   String  @unique
+  banner String?
+  logo   String?
+  rules  Json
+  events Event[]
+}
+
+model Event {
+  id                Int                @id @default(autoincrement())
+  name              String
+  slug              String             @unique
+  game              Game               @default(AC)
+  league            League?            @relation(fields: [leagueID], references: [id])
+  leagueID          String?
+  startDateTime     DateTime
+  endDateTime       DateTime
+  registrationOpen  DateTime
+  registrationClose DateTime
+  registrationType  RegistrationType[] @default([INDIVIDUAL])
+  registrations     Registration[]
+  registrationLimit Int?
+  configuration     Json
+  image             String?
+  banner            String?
+  description       String?            @db.VarChar(1000)
+  rules             String?            @db.VarChar(1000)
+}
+
+model Registration {
+  id        Int              @id @default(autoincrement())
+  type      RegistrationType @default(INDIVIDUAL)
+  event     Event            @relation(fields: [eventID], references: [id])
+  eventID   Int
+  userID    String
+  createdAt DateTime         @default(now())
+  model     String
+  skin      String
+  User      User             @relation(fields: [userId], references: [id])
+  userId    String
 }
