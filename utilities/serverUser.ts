@@ -6,5 +6,6 @@ export const getUserFromContext = async (): Promise<User | null> => {
   const {
     data: { user },
   } = await supabaseServerClient.auth.getUser();
+
   return user;
 };

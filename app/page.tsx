@@ -1,8 +1,6 @@
-"use client";
-import Image from "next/image";
-import Input from "@/components/UIKit/Input";
-import CTA from "@/components/UIKit/CTA";
-import Button from "@/components/UIKit/Button";
+import Input from "@/components/base/Input";
+import CTA from "@/components/base/CTA";
+import Button from "@/components/base/Button";
 
 export default function Home() {
   return (
@@ -19,7 +17,9 @@ export default function Home() {
         </div>
         <div className="flex flex-col items-center p-8 m-4 rounded-md bg-elevation-3">
           <CTA>START RACING</CTA>
-          <Button variant="primary">Primary Button</Button>
+          <Button variant="primary" inProgress>
+            Primary Button
+          </Button>
           <Button variant="primary" outline>
             Primary Button
           </Button>

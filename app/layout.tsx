@@ -2,7 +2,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Figtree } from "next/font/google";
 import React from "react";
-import Provider from "@/app/_trpc/Provider";
+
 const inter = Figtree({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -18,10 +18,8 @@ export default function RootLayout({ children, auth }: Props) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Provider>
-          {children}
-          {auth}
-        </Provider>
+        {children}
+        {auth}
       </body>
     </html>
   );

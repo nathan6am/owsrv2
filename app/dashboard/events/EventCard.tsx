@@ -1,16 +1,11 @@
 "use client";
 
-import { Event } from "@prisma/client";
 import React from "react";
 
-import { Input } from "@/components/UIKit";
-import MultiSelect from "@/components/UIKit/MultiSelect";
 import LicenseTag from "@/components/LicenseTag";
-import { MdNotInterested, MdCheckCircleOutline, MdDownload } from "react-icons/md";
+import { MdNotInterested, MdDownload } from "react-icons/md";
 import { IoMdTrophy, IoMdPersonAdd, IoMdCar } from "react-icons/io";
-import { Wrench } from "@phosphor-icons/react";
-import { useState } from "react";
-import { MdSearch } from "react-icons/md";
+import { Wrench } from "@phosphor-icons/react/dist/ssr";
 import { FaUser, FaRoad } from "react-icons/fa";
 import { HiTrendingUp } from "react-icons/hi";
 import { BiStopwatch, BiDollarCircle } from "react-icons/bi";
@@ -21,16 +16,25 @@ export const EVENTTYPES = [
   { name: "Fun Race", value: "fun" },
   { name: "Championship Series", value: "championship" },
 ];
-export default function EventCard({ event }: { event: Event }) {
+
+interface eventCardProps {
+  
+}
+export default function EventCard() {
   <div className="rounded-lg bg-elevation-3 flex flex-col  w-full mx-auto max-w-lg aspect-[3/2]">
     <div
       style={{
-        backgroundImage: "url(https://owsr-public-img.s3.amazonaws.com/praga-silverstone.jpg)",
+        backgroundImage:
+          "url(https://owsr-public-img.s3.amazonaws.com/praga-silverstone.jpg)",
       }}
       className="w-full min-h-[10rem] rounded-t-lg relative overflow-hidden flex flex-col justify-end grow bg-cover bg-no-repeat bg-center"
     >
       <div className="absolute top-2 right-2 w-auto h-12 rounded-full">
-        <img src="/images/AC-logo.png" className="h-full w-auto" alt="Assetto Corsa" />
+        <img
+          src="/images/AC-logo.png"
+          className="h-full w-auto"
+          alt="Assetto Corsa"
+        />
       </div>
 
       <div className="backdrop-blur-md bg-elevation-1/[0.1] py-1.5 px-3">
@@ -39,7 +43,10 @@ export default function EventCard({ event }: { event: Event }) {
             <MdNotInterested className="text-primary-500 mr-2" size="1.2em" />
             <FaUser className="text-light-400 mr-2 inline" />
             <h2 className="text-sm">3/20</h2>
-            <IoMdCar className="text-light-400 ml-4 mr-2 inline" size={"1.3em"} />
+            <IoMdCar
+              className="text-light-400 ml-4 mr-2 inline"
+              size={"1.3em"}
+            />
             <h2 className="text-sm">1</h2>
           </div>
           <p className="text-xs">
@@ -69,8 +76,12 @@ export default function EventCard({ event }: { event: Event }) {
         <IoMdTrophy className="mr-1 inline" />
         Praga R1 Cup Series
       </p>
-      <h2 className="text-xl text-light-100 font-semibold mb-0.5">Praga R1 Cup - Silverstone</h2>
-      <p className="text-light-300 text-sm">Sunday, 12th September 2021 - 20:00 UTC</p>
+      <h2 className="text-xl text-light-100 font-semibold mb-0.5">
+        Praga R1 Cup - Silverstone
+      </h2>
+      <p className="text-light-300 text-sm">
+        Sunday, 12th September 2021 - 20:00 UTC
+      </p>
       <div className="absolute bottom-0 top-0 right-4 py-3 flex flex-col justify-between items-end">
         <div className="flex flex-row items-center">
           <BiDollarCircle size="1.2em" className="mr-1" />

@@ -1,0 +1,19 @@
+{
+    "servers": [
+        {
+            "name": "Local Test",
+            "host": "localhost",
+            "ports": {
+                "api": 7000
+            }
+        },
+        {
+            "name": "Remote Test",
+            "host": "15.204.273.92",
+            "ports": {
+                "api": 7000,
+                "web": 8772
+            }
+        }
+    ]
+}

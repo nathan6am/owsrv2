@@ -1,15 +1,8 @@
 "use client";
-import { Button, Input } from "@/components/UIKit";
-import MultiSelect from "@/components/UIKit/MultiSelect";
-import LicenseTag from "@/components/LicenseTag";
-import { MdNotInterested, MdCheckCircleOutline, MdDownload } from "react-icons/md";
-import { IoMdTrophy, IoMdPersonAdd, IoMdCar } from "react-icons/io";
-import { Wrench } from "@phosphor-icons/react";
+import { Button, Input } from "@/components/base";
+
 import { useState } from "react";
-import { MdSearch } from "react-icons/md";
-import { FaUser, FaRoad } from "react-icons/fa";
-import { HiTrendingUp } from "react-icons/hi";
-import { BiStopwatch, BiDollarCircle } from "react-icons/bi";
+
 export const EVENTTYPES = [
   { name: "League Race", value: "league" },
   { name: "Hotlap", value: "hotlap" },
@@ -23,7 +16,7 @@ export default function Leagues() {
   return (
     <div className="w-full h-full flex  flex-col items-center">
       <div className="p-8">
-        <h2 className="text-2xl  font-kallisto text-light-200">Leagues & Championships</h2>
+        <h2 className="text-2xl font-kallisto text-light-200">Leagues & Championships</h2>
       </div>
       <div className="w-full container">
         <LeagueCard

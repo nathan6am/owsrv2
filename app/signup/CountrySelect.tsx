@@ -194,10 +194,10 @@ const countries = [
   { label: "Zambia", value: "ZM" },
   { label: "Zimbabwe", value: "ZW" },
 ];
-import { AutoComplete } from "@/components/UIKit";
+import { AutoComplete } from "@/components/base";
 import { useMemo } from "react";
 export default function CountrySelect({ value, onChange }: { value: string; onChange: (value: string) => void }) {
-  const country = useMemo(() => countries.find((country) => country.value === value), [value]);
+  const country = useMemo(() => countries.find((country) => country.value === value) || "", [value]);
   return (
     <AutoComplete
       label="Country"
