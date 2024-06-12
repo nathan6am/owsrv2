@@ -16,9 +16,7 @@ export default function Events() {
       <div className="rounded-lg bg-elevation-300 py-6">
         <SearchFilters />
       </div>
-      <SearchResults>
-        <div>Event</div>
-      </SearchResults>
+      <SearchResults></SearchResults>
       <SubmitButton />
     </div>
   );

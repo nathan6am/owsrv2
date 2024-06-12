@@ -1,7 +1,10 @@
+import EventCard from "./EventCard";
+import { SAMPLE_EVENTS } from "@/server/tests/seed";
+
 export default function SearchResults({
   children,
 }: {
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }) {
   return (
     <>
@@ -10,7 +13,9 @@ export default function SearchResults({
         {/* <ListGridToggle value={view} onChange={setView} /> */}
       </div>
       <div className="grid gap-4 mt-4 grid-cols-eventGridSm sm:grid-cols-eventGrid">
-        {children}
+        {SAMPLE_EVENTS.map((event) => (
+          <EventCard key={event.name} event={event} />
+        ))}
       </div>
     </>
   );
